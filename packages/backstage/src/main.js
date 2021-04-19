@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
 import VueAxios from 'vue-axios'
+import './styles/theme/index.css';
 import Axios from './utils/axios.config.js'
 import App from './App.vue';
 import './registerServiceWorker';
