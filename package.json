@@ -1,16 +1,11 @@
 {
   "name": "dsms_front",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "驾校管理系统前端",
   "workspaces": [
     "/packages"
   ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "author": "Karrynana",
   "devDependencies": {
     "lerna": "^4.0.0"
   }
