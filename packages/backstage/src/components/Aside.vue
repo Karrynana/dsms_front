@@ -32,10 +32,26 @@
           <i class="el-icon-user"></i>
           <span slot="title">人员管理</span>
         </template>
-          <el-menu-item index="4-1">学员</el-menu-item>
-          <el-menu-item index="4-2">教练</el-menu-item>
-          <el-menu-item index="4-3">学情教师</el-menu-item>
+        <el-menu-item index="4-1" @click="goToPage('Student')"
+          >学员</el-menu-item
+        >
+        <el-menu-item index="4-2">教练</el-menu-item>
+        <el-menu-item index="4-3">学情教师</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    goToPage(pageName) {
+      if (pageName === this.$route.name) {
+        // 若当前页面即前往的页面 不处理
+        return;
+      }
+      this.$router.push({ name: pageName });
+    },
+  },
+};
+</script>

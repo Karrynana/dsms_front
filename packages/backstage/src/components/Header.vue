@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1>DSNAME 管理后台</h1>
+    <h1 @click="$router.push({ name: 'Home' })">DSNAME 管理后台</h1>
     <div>
       <span>欢迎你，{{}}</span>
       <el-link>退出</el-link>

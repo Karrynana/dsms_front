@@ -15,6 +15,10 @@
               show-password
             />
           </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">登录</el-button>
+            <el-button>忘记密码</el-button>
+          </el-form-item>
         </el-form>
       </el-card>
     </el-col>
@@ -34,11 +38,20 @@ export default {
           { required: true, message: "请输入账号名", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
         ],
-        password:[
-          {required: true, message: "请输入密码", trigger: "blur" }
-        ]
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
     };
+  },
+  methods: {
+    onSubmit() {
+      const params = {
+        account: this.formData.account,
+        password: this.formData.password,
+      };
+      this.axios.get("/t-user", { params }).then((response) => {
+        console.log(response.data);
+      });
+    },
   },
 };
 </script>
