@@ -1,5 +1,5 @@
 import axios from 'axios';
-import qs from 'qs';
+// import qs from 'qs';
 import { Message, Loading } from 'element-ui';
 
 // 配置接口地址
@@ -28,9 +28,9 @@ Axios.interceptors.request.use(
       spinner: 'el-icon-loading',
       background: 'rgba(0, 0, 0, 0.7)',
     });
-    if (config.method === 'post') {
-      config.data = qs.stringify(config.data);
-    }
+    // if (config.method === 'post' || config.method ==='put') {
+    //   config.data = qs.stringify(config.data);
+    // }
     config.headers.token = localStorage.getItem('token') || "";
     return config;
   },
