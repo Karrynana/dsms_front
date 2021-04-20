@@ -4,21 +4,31 @@
       <img src="@/assets/logo.png" alt="Logo" />
     </el-col>
     <el-col :span="4">
-      <el-link icon="el-icon-user-solid"  type="primary">欢迎你，{{ role }} {{ name }}</el-link>
+      <el-link icon="el-icon-user-solid" type="primary">
+        欢迎你，{{ userInfo.role }} {{ userInfo.name }}
+      </el-link>
     </el-col>
     <el-col :span="2">
-      <el-link icon="el-icon-close" type="info">退出</el-link>
+      <el-link icon="el-icon-close" type="info" @click="logout">退出</el-link>
     </el-col>
   </el-row>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      role: "角色",
-      name: "姓名",
-    };
+  computed: {
+    userInfo() {
+      return this.$store.state.userInfo;
+    },
+  },
+  created() {
+    this.$store.dispatch("getUserInfo");
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push({ name: "Login" });
+    },
   },
 };
 </script>

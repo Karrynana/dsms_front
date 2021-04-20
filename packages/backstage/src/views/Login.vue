@@ -6,12 +6,17 @@
         <el-divider />
         <el-form :model="formData" :rules="rules" label-width="auto">
           <el-form-item label="账号" prop="account">
-            <el-input v-model="formData.account" placeholder="请输入账号" />
+            <el-input
+              v-model="formData.account"
+              name="account"
+              placeholder="请输入账号"
+            />
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
               v-model="formData.password"
               placeholder="请输入密码"
+              name="password"
               show-password
             />
           </el-form-item>
@@ -36,7 +41,12 @@ export default {
       rules: {
         account: [
           { required: true, message: "请输入账号名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          {
+            min: 3,
+            max: 20,
+            message: "长度在 3 到 20 个字符",
+            trigger: "blur",
+          },
         ],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
@@ -48,8 +58,15 @@ export default {
         account: this.formData.account,
         password: this.formData.password,
       };
-      this.axios.get("/t-user", { params }).then((response) => {
-        console.log(response.data);
+      this.axios.get("/t-user", { params }).then((res) => {
+        if (res.data?.code === 0) {
+          // 登录成功后———
+          // 1. 拿取 token 换取信息
+          this.$store.dispatch("getUserInfo");
+          // 2. 推入原页面，若无原页面推入 Home 页面
+          const fromPageName = this.$route.params.from || 'Home';
+          this.$router.push({ name: fromPageName });
+        }
       });
     },
   },

@@ -16,7 +16,6 @@ const Axios = axios.create({
   baseURL: baseURL, // 后台服务地址
   timeout: 20000, // 请求超时时间20s
   responseType: 'json',
-  withCredentials: true, // 是否携带cookie
 });
 
 let loadingInstance;
@@ -32,6 +31,7 @@ Axios.interceptors.request.use(
     if (config.method === 'post') {
       config.data = qs.stringify(config.data);
     }
+    config.headers.token = localStorage.getItem('token') || "";
     return config;
   },
   (err) => {
@@ -44,6 +44,10 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
   (res) => {
     loadingInstance.close();
+    // 如果颁发 token 存入 localStorage
+    if(res.headers?.token){
+      localStorage.setItem('token', res.headers?.token)
+    }
     if (res.data?.code === 0 && res.status === 200) {
       return res;
     } else {
