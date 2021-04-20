@@ -1,6 +1,6 @@
 <template>
   <div class="add-user">
-    <el-button @click="dialogVisible = !dialogVisible">新增</el-button>
+    <el-button @click="dialogVisible = !dialogVisible">新增{{role}}</el-button>
     <el-dialog :title="`新增${role}`" :visible.sync="dialogVisible">
       <el-form :model="formData" :rules="rules"  label-width="auto">
         <el-form-item label="账号" prop="account">
