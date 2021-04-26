@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <!-- 非 Login 页面的布局 -->
-    <el-container v-if="$route.name !== 'Login'">
+    <!-- Login 页面的布局 -->
+    <router-view v-if="$route.name === 'Login'" />
+    <!-- Home 页面的布局 -->
+    <el-container v-else-if="$route.name === 'Home'">
       <el-header>
-        <Header/>
+        <Header />
       </el-header>
-      <el-aside width="200px">
-        <Aside />
-      </el-aside>
       <el-main>
         <router-view />
       </el-main>
     </el-container>
-
-    <!-- Login 页面的布局 -->
-    <router-view v-else />
+    <!-- 非 Login/Home 页面的布局 -->
+    <el-container v-else>
+      <el-header>
+        <Header />
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <Aside />
+        </el-aside>
+        <el-main>
+          <router-view />
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -23,6 +33,6 @@ import Aside from "@/components/Aside.vue";
 import Header from "@/components/Header.vue";
 
 export default {
-  components: { Aside,Header },
+  components: { Aside, Header },
 };
 </script>

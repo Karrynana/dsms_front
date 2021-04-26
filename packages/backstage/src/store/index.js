@@ -7,12 +7,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: {},
-    name:'Hi'
+    name: 'Hi',
   },
   mutations: {
     changeUserInfo(state, newUserInfo) {
       state.userInfo = newUserInfo;
-    }
+    },
   },
   actions: {
     getUserInfo({ commit }) {

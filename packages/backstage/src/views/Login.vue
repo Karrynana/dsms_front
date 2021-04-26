@@ -60,10 +60,7 @@ export default {
       };
       this.axios.get("/t-user", { params }).then((res) => {
         if (res.data?.code === 0) {
-          // 登录成功后———
-          // 1. 拿取 token 换取信息
-          this.$store.dispatch("getUserInfo");
-          // 2. 推入原页面，若无原页面推入 Home 页面
+          // 登录成功后推入原页面，若无原页面推入 Home 页面
           const fromPageName = this.$route.params.from || 'Home';
           this.$router.push({ name: fromPageName });
         }
