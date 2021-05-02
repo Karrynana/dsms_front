@@ -1,0 +1,12 @@
+{
+  "name": "dsms_front",
+  "version": "1.0.0",
+  "author": "Karrynana",
+  "license": "MIT",
+  "workspaces": [
+    "./packages"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

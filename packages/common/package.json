@@ -1,0 +1,12 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "description": "公共工具类",
+  "main": "index.js",
+  "author": "Karrynana",
+  "private:": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "element-ui": "^2.15.1"
+  }
+}

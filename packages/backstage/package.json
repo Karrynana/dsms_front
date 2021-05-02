@@ -1,0 +1,21 @@
+{
+  "name": "vue2-vite",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "element-ui": "^2.15.1",
+    "vite-plugin-vue2": "^1.4.0",
+    "vue": "^2.6.12",
+    "vue-axios": "^3.2.4",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "stylus": "^0.54.8",
+    "vite": "^2.0.5"
+  }
+}
