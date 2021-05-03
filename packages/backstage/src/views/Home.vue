@@ -6,11 +6,7 @@
 </template>
 
 <script>
-import AdminHome from "@/components/home/AdminHome.vue";
 export default {
-  components: {
-    AdminHome
-  },
   computed:{
     role(){
       return this.$store.state.userInfo.role;

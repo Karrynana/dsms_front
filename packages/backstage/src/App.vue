@@ -28,15 +28,6 @@
   </div>
 </template>
 
-<script>
-import Aside from '@/components/Aside.vue';
-import Header from '@/components/Header.vue';
-
-export default {
-  components: { Aside, Header },
-};
-</script>
-
 <style lang="stylus">
 .hero3{
   font-size 1.5rem

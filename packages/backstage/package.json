@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "element-ui": "^2.15.1",
+    "vite-plugin-components": "^0.8.4",
     "vite-plugin-vue2": "^1.4.0",
     "vue": "^2.6.12",
     "vue-axios": "^3.2.4",

@@ -21,10 +21,8 @@
 </template>
 
 <script>
-import ActionCard from "@/components/ActionCard.vue";
 
 export default {
-  components: { ActionCard },
   data() {
     return {
       actions: [

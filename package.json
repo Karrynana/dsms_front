@@ -2,7 +2,6 @@
   "name": "dsms_front",
   "version": "1.0.0",
   "author": "Karrynana",
-  "license": "MIT",
   "workspaces": [
     "./packages"
   ],
