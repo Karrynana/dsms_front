@@ -5,7 +5,8 @@ import { Message, Loading } from 'element-ui';
 // 配置接口地址
 let baseURL = '';
 if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://192.168.123.96:8081/dsms/'; // 开发环境
+  baseURL = 'http://c2t6xh.natappfree.cc/dsms/'; // 远程开发环境
+  // baseURL = 'http://192.168.123.96:8081/dsms/'; // 开发环境
 } else if (process.env.type === 'test') {
   // baseURL = '';// 测试环境
 } else {
