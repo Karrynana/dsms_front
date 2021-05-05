@@ -48,7 +48,6 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <div>{{ userInfo }}</div>
     <el-dialog title="上传头像" :visible.sync="dialogVisible">
       <span slot="footer" class="dialog-footer">
         <el-upload

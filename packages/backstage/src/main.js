@@ -7,6 +7,7 @@ import store from './store';
 import common from '../../common/index';
 import './styles/theme/index.css';
 
+Vue.config.productionTip = false
 Vue.use(VueAxios, common.axios);
 Vue.use(ElementUI);
 Vue.prototype.$utils = common.utils;
