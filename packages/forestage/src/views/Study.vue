@@ -13,9 +13,9 @@
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="title my-5"> name </v-list-item-title>
-              <v-list-item-subtitle class="my-5">phone:12345678</v-list-item-subtitle>
-              <v-list-item-subtitle class="my-5">email:a88@gmail.com</v-list-item-subtitle>
+              <v-list-item-title class="title my-5"> {{userInfo.name}} </v-list-item-title>
+              <v-list-item-subtitle class="my-5">{{userInfo.phone}}</v-list-item-subtitle>
+              <v-list-item-subtitle class="my-5">{{userInfo.email}}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -49,6 +49,25 @@
 
 <script>
 export default {
-  
+  data(){
+    return{
+      
+    }
+  },
+  // 在 Vue 组件中响应式展示 Vuex 状态,this.$store..
+  computed:{
+    // name() {
+    //   return this.$store.state.userInfo;
+    // },email(){
+    //   return this.$store.state.userInfo.email;
+    // },phone(){
+    //   return this.$store.state.userInfo.phone;
+    // } 下面是改进写法
+    userInfo(){
+      return this.$store.state.userInfo;
+    }
+
+  }
+
 };
 </script>

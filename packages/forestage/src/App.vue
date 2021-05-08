@@ -17,7 +17,9 @@
       <div>
         <!-- 登陆成功后，登录按钮消失，出现退出箭头 -->
         <v-btn icon v-if="!userInfo.account">
-          <v-icon large v-on:click="overlay = !overlay">mdi-account-circle</v-icon>
+          <v-icon large v-on:click="overlay = !overlay"
+            >mdi-account-circle</v-icon
+          >
         </v-btn>
         <v-btn icon v-else>
           <v-icon large v-on:click="goBack">mdi-exit-to-app</v-icon>
@@ -60,28 +62,30 @@
 
 <script>
 import themes from "@/utils/theme.js";
+// export default包含的内容抛出给Vue实例
 export default {
   // const i=0
   // 混入
   mixins: [themes],
+  // 在 Vue 组件中响应式展示 Vuex 状态,this.$store..
   data: function () {
     return {
       overlay: false,
       // 用户的账号和密码，先设置为空
       account: "",
       password: "",
-      // 获取到后端发送的的信息
-      userInfo: {},
+      // 获取到后端发送的的信息,需要注释，因为在后文computed属性里同步更新，要满足“no-dupe-keys”
+      // userInfo: {},
     };
   },
   methods: {
-    // 登录成功之后，获取用户信息
-    getUserInfo() {
-      this.axios.get("/t-user/my").then((res) => {
-        console.log(res);
-        this.userInfo = res.data.data;
-      });
-    },
+    // 登录成功之后，获取用户信息=>store-index.js中action寫入异步操作
+    // getUserInfo() {
+    //   this.axios.get("/t-user/my").then((res) => {
+    //     console.log(res);
+    //     this.userInfo = res.data.data;
+    //   });
+    // },
     // 判断若是用户，可以使用其他功能
     login() {
       // 发请求,后端端口/t-user，params接收对象参数
@@ -93,7 +97,8 @@ export default {
           console.log(res);
           // 三等于，严格要求数据类型
           if (res?.data.code === 0) {
-            this.getUserInfo();
+            this.$store.dispatch("getUserInfo");
+            // this.getUserInfo();
             alert("登陆成功，可查看更多精彩页面！");
           } else {
             alert("账号/密码错误，无法登录~");
@@ -102,16 +107,16 @@ export default {
         });
       this.overlay = false;
       // 每次登录后input置空，注意空字符串时'',但是' '是包含空格的字符。
-      this.account='';
-      this.password='';
+      this.account = "";
+      this.password = "";
     },
     // 退出登陆状态：1.清除token,2.对象userInfo置空清除数据
     goBack() {
       localStorage.removeItem("token");
       this.userInfo = {};
       // 在其他页面时回到首页Home
-      this.$router.push({ name:'Home' });
-      alert('正在退出');
+      this.$router.push({ name: "Home" });
+      alert("正在退出");
       // this.$router.go(0);
     },
   },
@@ -119,8 +124,14 @@ export default {
   // 页面创建后，根据本地存储的token，发送获取对应信息的请求=>防止刷新之后页面数据丢失
   mounted() {
     if (localStorage.getItem("token")) {
-      this.getUserInfo();
+      this.$store.dispatch("getUserInfo");
     }
+  },
+  // 要实时监听userInfo
+  computed: {
+    userInfo() {
+      return this.$store.state.userInfo;
+    },
   },
 };
 </script>
