@@ -4,10 +4,10 @@
       <div class="d-flex align-center">
         <v-img
           alt="Logo"
-          class="shrink mt-1 hidden-sm-and-down"
+          class=" mt-1"
           contain
           min-width="100"
-          src="@/assets/logo_white.png"
+          :src="require('@/assets/logo_white.png')"
           width="100"
         />
       </div>
@@ -24,8 +24,9 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </v-main>
   </v-app>
 </template>
-

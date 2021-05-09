@@ -1,5 +1,5 @@
 {
-  "name": "vue2-vite",
+  "name": "forestage",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -16,6 +16,7 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@mdi/font": "^5.9.55",
     "deepmerge": "^4.2.2",
     "sass": "^1.32.12",
     "sass-loader": "^11.0.1",
