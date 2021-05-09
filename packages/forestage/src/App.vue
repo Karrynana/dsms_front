@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark flat>
       <div class="d-flex align-center">
         <v-img
           alt="Logo"
-          class=" mt-1"
+          class="shrink mt-1"
           contain
           min-width="100"
           :src="require('@/assets/logo_white.png')"
@@ -24,9 +24,10 @@
     </v-app-bar>
 
     <v-main>
-      <v-container>
+      <v-container v-if="$route.name !== 'Home'">
         <router-view></router-view>
       </v-container>
+      <router-view v-else></router-view>
     </v-main>
   </v-app>
 </template>

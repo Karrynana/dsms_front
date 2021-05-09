@@ -3,10 +3,9 @@
   <div class="">
     <v-carousel
       cycle
-      height="500"
+      height="350"
       hide-delimiter-background
       show-arrows-on-hover
-      class="rounded-xl"
     >
       <v-carousel-item
         v-for="(slide, i) in slides"
