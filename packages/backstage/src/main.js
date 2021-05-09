@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 Vue.use(VueAxios, common.axios);
 Vue.use(ElementUI);
 Vue.prototype.$utils = common.utils;
+Vue.prototype.$dao = common.dao;
 
 new Vue({
   router,

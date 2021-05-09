@@ -9,6 +9,7 @@ import common from '../../common/index';
 Vue.config.productionTip = false
 Vue.use(VueAxios, common.axios);
 Vue.prototype.$utils = common.utils;
+Vue.prototype.$dao = common.dao;
 
 new Vue({
   router,

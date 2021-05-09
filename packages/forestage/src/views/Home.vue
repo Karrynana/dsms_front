@@ -11,7 +11,7 @@
           v-for="(card, index) in cards"
           :key="index"
         >
-          <v-card ripple hover>
+          <v-card ripple hover @click="onCardClick(card.action)">
             <v-card-text class="text-center text-h5">
               <v-icon x-large>{{ card.icon }}</v-icon>
               <div>{{ card.title }}</div>
@@ -65,6 +65,9 @@ export default {
         {
           title: '我的驾照',
           icon: 'mdi-id-card',
+          action: {
+            routeName: 'DrivingLicense',
+          },
         },
         {
           title: '教练介绍',
@@ -76,6 +79,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    onCardClick(action) {
+      const { routeName } = action;
+      if (routeName) {
+        this.$router.push({ name: routeName });
+      }
+    },
   },
 };
 </script>
