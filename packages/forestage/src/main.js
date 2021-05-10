@@ -5,6 +5,7 @@ import vuetify from '@/plugins/vuetify';
 import router from './router'
 import store from './store'
 import common from '../../common/index';
+import '../../common/styles/theme/index.css';
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, common.axios);

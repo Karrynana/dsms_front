@@ -5,7 +5,7 @@ import { Message, Loading } from 'element-ui';
 // 配置接口地址
 let baseURL = '';
 if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://82.157.175.248:8081/'; // 远程开发环境
+  baseURL = 'http://82.157.175.248:8081/dsms/'; // 远程开发环境
   // baseURL = 'http://192.168.123.96:8081/dsms/'; // 开发环境
 } else if (process.env.type === 'test') {
   // baseURL = '';// 测试环境
@@ -29,7 +29,8 @@ Axios.interceptors.request.use(
       spinner: 'el-icon-loading',
       background: 'rgba(0, 0, 0, 0.7)',
     });
-    config.headers.token = localStorage.getItem('token') || '';
+    const token = localStorage.getItem('token');
+    token && (config.headers.token = token || '');
     return config;
   },
   (err) => {
@@ -46,7 +47,7 @@ Axios.interceptors.response.use(
     if (res.headers?.token) {
       localStorage.setItem('token', res.headers?.token);
     }
-    if (res.status === 200) {
+    if (res.status === 200 && res.data?.code === 0) {
       return res;
     } else {
       Message.error(res.data?.msg);

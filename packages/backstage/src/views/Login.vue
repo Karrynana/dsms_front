@@ -35,36 +35,38 @@ export default {
   data() {
     return {
       formData: {
-        account: "",
-        password: "",
+        account: '',
+        password: '',
       },
       rules: {
         account: [
-          { required: true, message: "请输入账号名", trigger: "blur" },
+          { required: true, message: '请输入账号名', trigger: 'blur' },
           {
             min: 3,
             max: 20,
-            message: "长度在 3 到 20 个字符",
-            trigger: "blur",
+            message: '长度在 3 到 20 个字符',
+            trigger: 'blur',
           },
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
       },
     };
   },
   methods: {
-    onSubmit() {
+    /**
+     * 点击登录，提交登录信息
+     */
+    async onSubmit() {
       const params = {
         account: this.formData.account,
         password: this.formData.password,
       };
-      this.axios.get("/t-user", { params }).then((res) => {
-        if (res.data?.code === 0) {
-          // 登录成功后推入原页面，若无原页面推入 Home 页面
-          const fromPageName = this.$route.params.from || 'Home';
-          this.$router.push({ name: fromPageName });
-        }
-      });
+      const isLogin = await this.$dao.login(params);
+      if (isLogin) {
+        // 登录成功后推入原页面，若无原页面推入 Home 页面
+        const fromPageName = this.$route.params.from || 'Home';
+        this.$router.push({ name: fromPageName });
+      }
     },
   },
 };

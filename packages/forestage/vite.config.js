@@ -1,6 +1,6 @@
 import path from 'path';
 const { createVuePlugin } = require('vite-plugin-vue2');
-import ViteComponents from 'vite-plugin-components';
+import ViteComponents from 'vite-plugin-components'; // 自动注册组件
 
 module.exports = {
   plugins: [

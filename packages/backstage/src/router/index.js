@@ -6,6 +6,7 @@ import PersonalCenter from '../views/PersonalCenter.vue';
 import Student from '../views/personnel/Student.vue';
 import Teacher from '../views/personnel/Teacher.vue';
 import Coach from '../views/personnel/Coach.vue';
+import Message from '../views/Message.vue';
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/personnel/student',
     name: 'Student',
     component: Student,
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    component: Message,
   },
 ];
 
