@@ -2,8 +2,8 @@
   <div class="teacher">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span class="hero3">学情教师管理</span>
-        <AddUser class="float-right" role="teacher" :update="getUserList"/>
+        <span class="hero3"> <i class="el-icon-s-custom"></i>学情教师管理</span>
+        <AddUser class="float-right" role="teacher" :update="getUserList" />
       </div>
       <!-- id 予以隐藏 不展示 -->
       <el-table :data="userList" style="width: 100%">
@@ -58,18 +58,14 @@ export default {
     };
   },
   created() {
-    this.getUserList();
+    this.getUserList('teacher');
   },
   methods: {
-    /**
-     * 管理员身份获取教师信息列表
-     */
-    getUserList() {
-      this.axios.get('/admin/teacher').then((res) => {
-        if (res.data?.code === 0) {
-          this.userList = res.data?.data;
-        }
-      });
+    async getUserList(role) {
+      const userList = JSON.parse(await this.$dao.getUserListWithRole());
+      if (userList) {
+        this.userList = userList[role];
+      }
     },
     /**
      * 管理员身份删除教师/教练
@@ -99,4 +95,3 @@ export default {
   },
 };
 </script>
-

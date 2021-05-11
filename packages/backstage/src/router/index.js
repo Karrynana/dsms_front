@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { Message as elMessages } from 'element-ui';
+import store from '../store';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import PersonalCenter from '../views/PersonalCenter.vue';
@@ -30,16 +32,37 @@ const routes = [
     path: '/personnel/teacher',
     name: 'Teacher',
     component: Teacher,
+    meta: {
+      navMeta: {
+        navGroupTitle: '人员管理',
+        navTitle: '学情督查员管理',
+      },
+      role: ['admin'],
+    },
   },
   {
     path: '/personnel/coach',
     name: 'Coach',
     component: Coach,
+    meta: {
+      navMeta: {
+        navGroupTitle: '人员管理',
+        navTitle: '教练管理',
+      },
+      role: ['admin'],
+    },
   },
   {
     path: '/personnel/student',
     name: 'Student',
     component: Student,
+    meta: {
+      navMeta: {
+        navGroupTitle: '人员管理',
+        navTitle: '学员管理',
+      },
+      role: ['admin', 'teacher'],
+    },
   },
   {
     path: '/message',
@@ -56,10 +79,24 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token') || '';
-  if (to.name === 'Login' || token) {
+  const role = store.state.userInfo.role;
+  if (to.name === 'Login') {
     next();
   } else {
-    next({ name: 'Login', params: { from: from?.name || '' } });
+    if (!token) {
+      next({ name: 'Login', params: { from: from?.name || '' } });
+    } else {
+      if (to.meta && to.meta.role) {
+        if (to.meta.role.includes(role)) {
+          next();
+        } else {
+          elMessages.error('无权限查看该页面');
+          next(from);
+        }
+      } else {
+        next();
+      }
+    }
   }
 });
 

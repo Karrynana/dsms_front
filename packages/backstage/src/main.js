@@ -5,7 +5,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import common from '../../common/index';
-import '../../common/styles/theme/index.css';
+import '../../common/styles/index.css';
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, common.axios);

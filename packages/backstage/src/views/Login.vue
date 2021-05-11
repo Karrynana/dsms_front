@@ -32,6 +32,17 @@
 
 <script>
 export default {
+  watch: {
+    '$store.state.userInfo': function (newValue) {
+      if (newValue && ['admin', 'teacher', 'coach'].includes(newValue.role)) {
+        // 登录成功后推入原页面，若无原页面推入 Home 页面
+        const fromPageName = this.$route.params.from || 'Home';
+        this.$router.push({ name: fromPageName });
+      }else{
+        this.$message.error('无权访问')
+      }
+    },
+  },
   data() {
     return {
       formData: {
@@ -63,9 +74,8 @@ export default {
       };
       const isLogin = await this.$dao.login(params);
       if (isLogin) {
-        // 登录成功后推入原页面，若无原页面推入 Home 页面
-        const fromPageName = this.$route.params.from || 'Home';
-        this.$router.push({ name: fromPageName });
+        // 获取用户身份信息
+        this.$store.dispatch('getUserInfo');
       }
     },
   },
