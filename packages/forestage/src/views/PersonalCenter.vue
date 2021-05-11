@@ -6,18 +6,18 @@
         <v-row>
           <v-col cols="6">
             <div>
-              <p>{{ userInfoWithShow.id }}</p>
-              <p>{{ userInfoWithShow.name }}</p>
-              <p>{{ userInfoWithShow.email }}</p>
-              <p>{{ userInfoWithShow.phone }}</p>
-              <p>{{ userInfoWithShow.account }}</p>
-              <p>{{ userInfoWithShow.role }}</p>
-              <p>{{ userInfoWithShow.idNumber }}</p>
-              <p>{{ userInfoWithShow.createTime }}</p>
+              <p>ID:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.id }}</span></p>
+              <p>姓名:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.name }}</span></p>
+              <p>电子邮箱:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.email }}</span></p>
+              <p>电话号码:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.phone }}</span></p>
+              <p>账号:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.account }}</span></p>
+              <p>身份:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.role }}</span></p>
+              <p>身份证号:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.idNumber }}</span></p>
+              <p>创建时间:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.createTime }}</span></p>
             </div>
           </v-col>
           <v-col cols="6" class="text-right">
-            <v-avatar size="125" tile>
+            <v-avatar size="200" tile>
               <v-img :src="userInfoWithShow.avatar"></v-img>
             </v-avatar>
           </v-col>

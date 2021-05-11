@@ -28,21 +28,24 @@ const login = (params) => {
 
 /**
  * 获取自己的用户信息
- * @returns 
+ * @returns
  */
-const getUserInfo = ()=>{
-  return new Promise((resolve)=>{
-    axios.get('/t-user/my/').then((res) => {
-      resolve(res.data?.data);
-    }).catch(()=>{
-      resolve(false);
-    });
-  })
-}
+const getUserInfo = () => {
+  return new Promise((resolve) => {
+    axios
+      .get('/t-user/my/')
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+};
 
 /**
  * 获取消息 收信人是自己
- * @returns 
+ * @returns
  */
 const getMessage = () => {
   return new Promise((resolve) => {
@@ -58,9 +61,9 @@ const getMessage = () => {
 };
 
 /**
- * 
- * @param {*} param0 
- * @returns 
+ *
+ * @param {*} param0
+ * @returns
  */
 const sendMessage = ({ receiver, msg }) => {
   return new Promise((resolve) => {
@@ -143,16 +146,31 @@ const deleteMessage = ({ id }) => {
   });
 };
 
-const getSendMessageList = ()=>{
+const getSendMessageList = () => {
   return new Promise((resolve) => {
-    axios.get('/t-message/sender').then((res) => {
-      console.log(res.data?.data);
-      resolve(res.data?.data)
-    }).catch(()=>{
-      resolve(false);
-    })
-  })
-}
+    axios
+      .get('/t-message/sender')
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+};
+
+const getUserListWithRole = () => {
+  return new Promise((resolve) => {
+    axios
+      .get('/management/user')
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+};
 
 export default {
   login,
@@ -164,5 +182,6 @@ export default {
   readAllMessage,
   cancelReadAllMessage,
   deleteMessage,
-  getSendMessageList
+  getSendMessageList,
+  getUserListWithRole
 };

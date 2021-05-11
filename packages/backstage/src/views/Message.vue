@@ -28,10 +28,26 @@
         <el-table-column prop="receiver" label="接受者" />
         <el-table-column prop="msg" label="信件内容" />
         <el-table-column prop="createTime" label="创建时间" />
+        <el-table-column fixed="right" label="操作" width="100">
+          <template #default="scope">
+            <el-link
+              :underline="false"
+              type="primary"
+              icon="el-icon-check"
+              @click="handleRead(scope.row)"
+              v-show="showMessageFilt.isReaded === 0"
+            >
+              已读
+            </el-link>
+            <el-link :underline="false" type="danger" icon="el-icon-close">
+              删除
+            </el-link>
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
     <!-- 发送消息的弹窗 -->
-    <el-dialog title="发送信件" :visible.sync="isShowSendDialog" width="30%">
+    <el-dialog title="发送信件" :visible.sync="isShowSendDialog">
       <el-form
         :model="sendMessageForm"
         :rules="rules"
@@ -42,7 +58,13 @@
           <el-input v-model="sendMessageForm.receiver"></el-input>
         </el-form-item>
         <el-form-item label="内容" prop="msg">
-          <el-input v-model="sendMessageForm.msg"></el-input>
+          <el-input
+            v-model="sendMessageForm.msg"
+            type="textarea"
+            maxlength="45"
+            show-word-limit
+            :autosize="{ minRows: 5 }"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmitSendMessage"
@@ -66,7 +88,7 @@ export default {
         return this.messageList.filter((message) => {
           return message.readFlag == this.showMessageFilt.isReaded;
         });
-      }else{
+      } else {
         return this.sendMessageList.filter((message) => {
           return message.readFlag == this.showMessageFilt.isReaded;
         });
@@ -81,6 +103,8 @@ export default {
     'showMessageFilt.isReceive': function (newValue) {
       if (!newValue) {
         this.getSendMessageList();
+      } else {
+        this.$store.dispatch('getMessageList');
       }
     },
   },
@@ -125,6 +149,16 @@ export default {
       }
     },
     onSubmitReadAll() {},
+    handleRead(message){
+      // 已读的消息不处理
+      if(message.readFlag){
+        return
+      }
+      // const isReaded = await this.$dao.readMessage({id: message.id});
+      // if(isReaded) {
+        
+      // }else
+    },
     async getSendMessageList() {
       const sendMessageList = await this.$dao.getSendMessageList();
       this.sendMessageList = sendMessageList;

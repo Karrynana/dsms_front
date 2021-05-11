@@ -31,13 +31,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // TODO: 登录态
-  // if (to.name !== 'Home') {
-  //   next({ name: 'Home' });
-  // } else {
-  //   next();
-  // }
-  next();
+  const token = localStorage.getItem('token') || '';
+  if (to.name !== 'Home' && !token) {
+    next({ name: 'Home' });
+  } else {
+    next();
+  }
 });
 
 export default router;
