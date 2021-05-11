@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import DrivingLicense from '@/views/DrivingLicense.vue';
+import PersonalCenter from '@/views/PersonalCenter.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/driving-license',
     name: 'DrivingLicense',
     component: DrivingLicense,
+  },
+  {
+    path: '/personal-center',
+    name: 'PersonalCenter',
+    component: PersonalCenter,
   },
 ];
 

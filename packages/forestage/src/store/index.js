@@ -20,16 +20,8 @@ export default new Vuex.Store({
   // ctions中放置异步操作和很复杂的批量的同步操作，组件通过调用Dispatch方法来操作Actions，Actions通过调用Commit方法来操作Mutations；
   actions: {
     async getUserInfo({ commit }) {
-      // TODO
       const userInfo = await dao.getUserInfo();
       commit('changeUserInfo', userInfo);
-      // axios.get('/t-user/my').then(res => {
-      //   if (res.data.code === 0) {
-      //     console.log(res);
-      //     this.userInfo = res.data.data;
-      //     commit('changeUserInfo', res.data?.data)
-      //   }
-      // })
     },
   },
   modules: {},
