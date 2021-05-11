@@ -4,13 +4,13 @@
     <router-view v-if="$route.name === 'Login'" />
     <!-- 非 Login 页面的布局 -->
     <el-container v-else>
-      <el-header>
-        <Header />
-      </el-header>
+      <el-aside width="200px">
+        <Aside />
+      </el-aside>
       <el-container>
-        <el-aside width="200px">
-          <Aside />
-        </el-aside>
+        <el-header>
+          <Header />
+        </el-header>
         <el-main>
           <router-view />
         </el-main>
