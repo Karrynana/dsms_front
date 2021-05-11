@@ -1,4 +1,5 @@
-import axios from './axios.config';
+import axios from '../axios.config';
+import message from './message';
 /**
  * dao 规范
  * 1. 第一个参数永远是后端接口需要的参数，应为一个对象，允许为空
@@ -44,15 +45,14 @@ const getUserInfo = () => {
 };
 
 /**
- * 获取消息 收信人是自己
- * @returns
+ * 更新用户信息
  */
-const getMessage = () => {
+const putUserInfo = (params) => {
   return new Promise((resolve) => {
     axios
-      .get('/t-message')
-      .then((res) => {
-        resolve(res.data?.data);
+      .put('/t-user', params)
+      .then(() => {
+        resolve(true);
       })
       .catch(() => {
         resolve(false);
@@ -61,104 +61,9 @@ const getMessage = () => {
 };
 
 /**
- *
- * @param {*} param0
- * @returns
+ * 查询自己权限下
+ * 能管理的用户列表
  */
-const sendMessage = ({ receiver, msg }) => {
-  return new Promise((resolve) => {
-    axios
-      .post('/t-message', { receiver, msg })
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-
-const readMessage = ({ id }) => {
-  return new Promise((resolve) => {
-    axios
-      .put('/t-message', { id })
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-
-const cancelReadMessage = ({ id }) => {
-  return new Promise((resolve) => {
-    axios
-      .put('/t-message', { id })
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-
-const readAllMessage = () => {
-  return new Promise((resolve) => {
-    axios
-      .put('/t-message')
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-const cancelReadAllMessage = () => {
-  return new Promise((resolve) => {
-    axios
-      .put('/t-message')
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-
-const deleteMessage = ({ id }) => {
-  return new Promise((resolve) => {
-    axios
-      .delete('/t-message', {
-        params: {
-          id,
-        },
-      })
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-
-const getSendMessageList = () => {
-  return new Promise((resolve) => {
-    axios
-      .get('/t-message/sender')
-      .then((res) => {
-        resolve(res.data?.data);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-};
-
 const getUserListWithRole = () => {
   return new Promise((resolve) => {
     axios
@@ -172,16 +77,67 @@ const getUserListWithRole = () => {
   });
 };
 
+/**
+ * 获取自己的驾照列表
+ */
+const getDriverLicenseList = () => {
+  return new Promise((resolve) => {
+    axios
+      .get('/t-user-licence')
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+};
+
+/**
+ * 根据驾照ID
+ * 返回该驾照的大流程
+ * @param {Objet} params
+ *  @param {Number} params.id
+ */
+const getProcessListById = (params) => {
+  return new Promise((resolve) => {
+    axios
+      .get('/t-user-process', { params })
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+};
+
+/**
+ * 根据大流程ID
+ * 返回该大流程的小流程
+ * @param {Objet} params
+ *  @param {Number} params.id
+ */
+const getProcessDetailListById = (params) => {
+  return new Promise((resolve) => {
+    axios
+      .get('/t-user-process-list', { params })
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+};
+
 export default {
+  ...message,
   login,
   getUserInfo,
-  getMessage,
-  sendMessage,
-  readMessage,
-  cancelReadMessage,
-  readAllMessage,
-  cancelReadAllMessage,
-  deleteMessage,
-  getSendMessageList,
-  getUserListWithRole
+  putUserInfo,
+  getUserListWithRole,
+  getDriverLicenseList,
+  getProcessListById,
+  getProcessDetailListById,
 };

@@ -20,46 +20,11 @@
       >
         <v-icon left>mdi-github</v-icon>Github
       </v-btn>
-      <v-btn text @click="onOpenLoginBox" v-if="!userInfo.account">
-        <v-icon left>mdi-account</v-icon>登录
-      </v-btn>
-      <v-btn text @click="goToPage('PersonalCenter')" v-else>
-        <v-avatar size="20" class="mr-2">
-          <img :src="userInfo.avatar" />
-        </v-avatar>
-        {{ userInfo.name }}
-      </v-btn>
+      <LoginBox/>
+      
     </v-app-bar>
 
     <v-main>
-      <!-- 遮罩层,弹出登录页面-->
-      <v-dialog
-        v-model="isOpenLoginBox"
-        opacity="0.5"
-        max-width="500"
-        @click:outside="resetLoginInput()"
-      >
-        <v-card class="primary--text" outlined :loading="isLoginLoading">
-          <v-card-title>登录</v-card-title>
-          <v-card-subtitle>Sign in to see more</v-card-subtitle>
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                v-model="loginInput.account"
-                label="输入你的账号:"
-              ></v-text-field>
-              <v-text-field
-                v-model="loginInput.password"
-                label="输入你的密码:"
-              ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" @click="onSubmitLogin">确定</v-btn>
-            <v-btn text color="primary" @click="onCloseLoginBox">取消</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
       <v-container v-if="$route.name !== 'Home'">
         <router-view></router-view>
       </v-container>
@@ -68,65 +33,3 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  computed: {
-    userInfo() {
-      return this.$store.state.userInfo;
-    },
-  },
-  data() {
-    return {
-      isOpenLoginBox: false,
-      isLoginLoading: false,
-      loginInput: {
-        account: '',
-        password: '',
-      },
-    };
-  },
-  methods: {
-    goToPage(name) {
-      if (this.$route.name === name) {
-        return;
-      }
-      this.$router.push({ name });
-    },
-    // 重置用户输入的账号密码
-    resetLoginInput() {
-      this.loginInput = {};
-    },
-    // 关闭登录弹窗
-    onCloseLoginBox() {
-      this.resetLoginInput();
-      this.isOpenLoginBox = false;
-      this.isLoginLoading = false;
-    },
-    // 打开登录弹窗
-    onOpenLoginBox() {
-      this.isOpenLoginBox = true;
-    },
-    // 点击确定登录
-    async onSubmitLogin() {
-      const { account, password } = this.loginInput;
-      // 简单的表单验证 规则为不为空
-      if (!account || !password) {
-        return;
-      }
-      this.isLoginLoading = true;
-      const isLogin = await this.$dao.login({ account, password });
-      if (isLogin) {
-        this.$store.dispatch('getUserInfo');
-      }
-      this.onCloseLoginBox();
-    },
-  },
-  created() {
-    // 获取用户身份信息
-    const token = localStorage.getItem('token');
-    token && this.$store.dispatch('getUserInfo');
-    // 获取消息条数
-    // this.$store.dispatch('getMessageList');
-  },
-};
-</script>

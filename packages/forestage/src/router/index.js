@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import DrivingLicense from '@/views/DrivingLicense.vue';
 import PersonalCenter from '@/views/PersonalCenter.vue';
+import Process from '@/views/Process.vue';
+import Message from '@/views/Message.vue';
 
 Vue.use(VueRouter);
 
@@ -22,6 +24,16 @@ const routes = [
     name: 'PersonalCenter',
     component: PersonalCenter,
   },
+  {
+    path: '/process',
+    name: 'Process',
+    component: Process,
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    component: Message,
+  }
 ];
 
 const router = new VueRouter({

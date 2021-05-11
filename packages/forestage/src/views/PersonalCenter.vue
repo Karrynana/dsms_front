@@ -4,22 +4,54 @@
     <v-card color="primary" dark max-width="600" class="mx-auto">
       <v-card-text>
         <v-row>
-          <v-col cols="6">
-            <div>
-              <p>ID:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.id }}</span></p>
-              <p>姓名:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.name }}</span></p>
-              <p>电子邮箱:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.email }}</span></p>
-              <p>电话号码:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.phone }}</span></p>
-              <p>账号:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.account }}</span></p>
-              <p>身份:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.role }}</span></p>
-              <p>身份证号:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.idNumber }}</span></p>
-              <p>创建时间:<span class="ml-2 white--text text-subtitle-1">{{ userInfoWithShow.createTime }}</span></p>
-            </div>
+          <v-col :cols="12" :sm="4" class="text-right">
+              <v-img :src="userInfoWithShow.avatar" :aspect-ratio="1"></v-img>
           </v-col>
-          <v-col cols="6" class="text-right">
-            <v-avatar size="200" tile>
-              <v-img :src="userInfoWithShow.avatar"></v-img>
-            </v-avatar>
+          <v-col :cols="12" :sm="8">
+            <div>
+              <v-text-field
+                label="姓名:"
+                v-model="userInfoWithShow.name"
+                :readonly="!isEdit"
+                :disabled="!isEdit"
+              />
+              <v-text-field
+                label="电子邮箱:"
+                v-model="userInfoWithShow.email"
+                :readonly="!isEdit"
+                :disabled="!isEdit"
+              />
+              <v-text-field
+                label="电话号码:"
+                v-model="userInfoWithShow.phone"
+                :readonly="!isEdit"
+                :disabled="!isEdit"
+              />
+              <v-text-field
+                label="身份证号:"
+                v-model="userInfoWithShow.idNumber"
+                :readonly="!isEdit"
+                :disabled="!isEdit"
+              />
+              <v-text-field
+                label="账号:"
+                v-model="userInfoWithShow.account"
+                readonly
+                disabled
+              />
+              <v-text-field
+                label="身份:"
+                v-model="userInfoWithShow.role"
+                readonly
+                disabled
+              />
+              <v-text-field
+                label="创建时间:"
+                v-model="userInfoWithShow.createTime"
+                readonly
+                disabled
+              />
+            </div>
           </v-col>
         </v-row>
       </v-card-text>
@@ -66,7 +98,7 @@ export default {
     },
     async onSubmitEdit() {
       // TODO
-      const isEdited = await this.$dao.editUserInfo(this.userInfoWithEdit);
+      const isEdited = await this.$dao.putUserInfo(this.userInfoWithEdit);
       if (isEdited) {
         this.$store.commit('changeUserInfo', this.userInfoWithEdit); // 本地增量修改数据
       }
