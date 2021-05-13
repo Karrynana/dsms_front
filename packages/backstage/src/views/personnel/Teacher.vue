@@ -2,7 +2,7 @@
   <div class="teacher">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span class="hero3"> <i class="el-icon-s-custom"></i>学情教师管理</span>
+        <span class="hero3"> <i class="el-icon-s-custom"></i>学情督察员管理</span>
         <AddUser class="float-right" role="teacher" :update="getUserList" />
       </div>
       <!-- id 予以隐藏 不展示 -->
@@ -25,7 +25,7 @@
         </el-table-column>
         <el-table-column prop="name" label="姓名" fixed="left">
         </el-table-column>
-        <el-table-column prop="avatar" label="头像"> </el-table-column>
+        <!-- <el-table-column prop="avatar" label="头像"> </el-table-column> -->
         <el-table-column prop="account" label="账号"> </el-table-column>
         <el-table-column prop="email" label="邮件"> </el-table-column>
         <el-table-column prop="phone" label="电话号码"> </el-table-column>

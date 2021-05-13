@@ -50,7 +50,7 @@ export default {
       roleMap:{
         student:"学生",
         coach:"教练",
-        teacher:"教师"
+        teacher:"学情督察员"
       },
       formData: {
         account: '',

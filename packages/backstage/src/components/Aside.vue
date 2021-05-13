@@ -33,7 +33,12 @@ export default {
       navGroupList: [
         {
           title: '人员管理',
-          icon: 'el-icon-user',
+          icon: 'el-icon-user-solid',
+          children: [],
+        },
+        {
+          title: '教学工具',
+          icon: 'el-icon-s-cooperation',
           children: [],
         },
       ],

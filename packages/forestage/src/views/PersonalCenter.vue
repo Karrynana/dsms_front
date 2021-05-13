@@ -5,7 +5,14 @@
       <v-card-text>
         <v-row>
           <v-col :cols="12" :sm="4" class="text-right">
-              <v-img :src="userInfoWithShow.avatar" :aspect-ratio="1"></v-img>
+            <v-img
+              :src="
+                userInfoWithShow.avatar ||
+                'https://lh3.googleusercontent.com/proxy/w9lFOz0xLvR12uZcjuiyEAd6hf4xoCz3mzC8WReFAEu8wPrng-rwNm6qh2cA39WPDMaH4Vz2QXba8R1xnlSNdm-z8dNcJEZSaL3uO2N48vhjTcdDz4Zzju8'
+              "
+              :aspect-ratio="1"
+              max-width="30vw"
+            ></v-img>
           </v-col>
           <v-col :cols="12" :sm="8">
             <div>
@@ -30,8 +37,8 @@
               <v-text-field
                 label="身份证号:"
                 v-model="userInfoWithShow.idNumber"
-                :readonly="!isEdit"
-                :disabled="!isEdit"
+                readonly
+                disabled
               />
               <v-text-field
                 label="账号:"
@@ -47,7 +54,7 @@
               />
               <v-text-field
                 label="创建时间:"
-                v-model="userInfoWithShow.createTime"
+                :value="$utils.formatDate(userInfoWithShow.createTime)"
                 readonly
                 disabled
               />

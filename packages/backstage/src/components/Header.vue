@@ -39,6 +39,9 @@ export default {
   created() {
     // 获取消息条数
     this.$store.dispatch('getMessageList');
+    if (!this.userInfo.account) {
+      this.$store.dispatch('getUserInfo');
+    }
   },
   methods: {
     goToPage(name) {

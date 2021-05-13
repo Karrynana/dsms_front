@@ -9,6 +9,7 @@ import Student from '../views/personnel/Student.vue';
 import Teacher from '../views/personnel/Teacher.vue';
 import Coach from '../views/personnel/Coach.vue';
 import Message from '../views/Message.vue';
+import QRCode from '../views/QRCode.vue';
 
 Vue.use(VueRouter);
 
@@ -69,6 +70,18 @@ const routes = [
     name: 'Message',
     component: Message,
   },
+  {
+    path: '/qrcode',
+    name: 'QRCode',
+    component: QRCode,
+    meta: {
+      navMeta: {
+        navGroupTitle: '教学工具',
+        navTitle: '我的二维码',
+      },
+      role: ['coach'],
+    },
+  },
 ];
 
 const router = new VueRouter({
@@ -91,7 +104,8 @@ router.beforeEach((to, from, next) => {
           next();
         } else {
           elMessages.error('无权限查看该页面');
-          next(from);
+          // next(from);
+          next();
         }
       } else {
         next();
