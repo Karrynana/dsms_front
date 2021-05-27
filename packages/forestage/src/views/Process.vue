@@ -14,7 +14,7 @@
         class="pa-2"
       >
         <v-card>
-          <v-card-title>科目进度</v-card-title>
+          <v-card-title>科目简介</v-card-title>
           <v-card-text>
             <p>科目类型：{{ process.processType === '1' ? '实操' : '理论' }}</p>
             <p>
