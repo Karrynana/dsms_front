@@ -62,7 +62,7 @@ const routes = [
         navGroupTitle: '人员管理',
         navTitle: '学员管理',
       },
-      role: ['admin', 'teacher'],
+      role: ['teacher'],
     },
   },
   {
@@ -92,7 +92,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token') || '';
-  const role = store.state.userInfo.role;
+  const role = store.state.userInfo.role || 'temp';
   if (to.name === 'Login') {
     next();
   } else {
@@ -100,12 +100,11 @@ router.beforeEach((to, from, next) => {
       next({ name: 'Login', params: { from: from?.name || '' } });
     } else {
       if (to.meta && to.meta.role) {
-        if (to.meta.role.includes(role)) {
+        if (to.meta.role.includes(role) || role === 'temp') {
           next();
         } else {
           elMessages.error('无权限查看该页面');
-          // next(from);
-          next();
+          next(from);
         }
       } else {
         next();

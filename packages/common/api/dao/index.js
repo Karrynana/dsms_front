@@ -1,5 +1,6 @@
 import axios from '../axios.config';
 import message from './message';
+import licence from './licence';
 /**
  * dao 规范
  * 1. 第一个参数永远是后端接口需要的参数，应为一个对象，允许为空
@@ -48,6 +49,7 @@ const getUserInfo = () => {
  * 更新用户信息
  */
 const putUserInfo = (params) => {
+  params.creator && delete params.creator;
   return new Promise((resolve) => {
     axios
       .put('/t-user', params)
@@ -133,6 +135,7 @@ const getProcessDetailListById = (params) => {
 
 export default {
   ...message,
+  ...licence,
   login,
   getUserInfo,
   putUserInfo,

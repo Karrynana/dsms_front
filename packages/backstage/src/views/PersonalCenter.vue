@@ -76,7 +76,7 @@ export default {
       isEdit: false,
       userInfo: {},
       dialogVisible: false,
-      imageUrl:""
+      imageUrl: '',
     };
   },
   created() {
@@ -84,10 +84,10 @@ export default {
   },
   methods: {
     getUserInfo() {
-      this.axios.get("/t-user/my/").then((res) => {
+      this.axios.get('/t-user/my/').then((res) => {
         if (res.data?.code === 0) {
           this.userInfo = Object.assign({}, res.data?.data);
-          this.$store.commit("changeUserInfo", res.data?.data); // 提交负荷
+          this.$store.commit('changeUserInfo', res.data?.data); // 提交负荷
         }
       });
     },
@@ -97,11 +97,10 @@ export default {
       }
       this.isEdit = !this.isEdit;
     },
-    onSubmit() {
+    async onSubmit() {
       this.isEdit = false;
-      this.axios.put("/t-user", this.userInfo).then(() => {
-        this.getUserInfo();
-      });
+      await this.$dao.putUserInfo(this.userInfo);
+      this.getUserInfo();
     },
     openAvatarDialog() {
       this.dialogVisible = true;
@@ -110,14 +109,14 @@ export default {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
+      const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error('上传头像图片只能是 JPG 格式!');
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
     },

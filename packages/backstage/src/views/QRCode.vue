@@ -45,7 +45,7 @@ export default {
       this.isValid = true;
       setTimeout(() => {
         this.isValid = false;
-        this.getQRCode('isisValid=false');
+        this.getQRCode('isValid=false');
       }, 60000);
     },
     /**
@@ -55,7 +55,7 @@ export default {
       const timestamp = new Date().getTime();
       msg =
         msg ||
-        `isisValid=true&timestamp=${timestamp}&coachId=${this.userInfo.id}`;
+        `isValid=true&timestamp=${timestamp}&coachId=${this.userInfo.id}`;
       const canvas = document.getElementById('qrcanvas');
       QRCode.toCanvas(canvas, msg, (error) => {
         if (error) {

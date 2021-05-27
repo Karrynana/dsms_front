@@ -27,17 +27,23 @@
         </el-table-column>
         <el-table-column prop="name" label="姓名" fixed="left">
         </el-table-column>
-        <!-- <el-table-column prop="avatar" label="头像"> </el-table-column> -->
         <el-table-column prop="account" label="账号"> </el-table-column>
         <el-table-column prop="email" label="邮件"> </el-table-column>
         <el-table-column prop="phone" label="电话号码"> </el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
+          <template slot-scope="scope">
+            <StudentLicence :userId="scope.row.id" />
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
 </template>
 
 <script>
+import StudentLicence from '@/components/StudentLicence.vue';
 export default {
+  components: { StudentLicence },
   data() {
     return {
       userList: [],

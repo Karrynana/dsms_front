@@ -18,8 +18,10 @@
           <v-card-title>{{ driverLicense.licenceEnName }}</v-card-title>
           <v-card-subtitle>{{ driverLicense.licenceName }}</v-card-subtitle>
           <v-card-text>
-            {{ driverLicense.activeFlag }}
-            {{ driverLicense.createTime }}
+            {{ $utils.formatDate(driverLicense.createTime * 1000) }}
+            <v-chip outlined>
+              {{ driverLicense.activeFlag ? '考取中' : '已拥有' }}
+            </v-chip>
           </v-card-text>
         </v-card>
       </v-col>
