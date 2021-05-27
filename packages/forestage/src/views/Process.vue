@@ -8,9 +8,51 @@
     </v-tabs>
 
     <v-tabs-items v-model="tabIndex">
-      <v-tab-item v-for="(process, pindex) in processList" :key="pindex">
-        <v-card v-for="detail,index in process"  :key="index">
-          <v-card-text></v-card-text>
+      <v-tab-item
+        v-for="(process, pindex) in processList"
+        :key="pindex"
+        class="pa-2"
+      >
+        <v-card>
+          <v-card-title>科目进度</v-card-title>
+          <v-card-text>
+            <p>科目类型：{{ process.processType === '1' ? '实操' : '理论' }}</p>
+            <p>
+              上一科目：{{
+                process.last == '-1'
+                  ? '无'
+                  : processList[parseInt(process.last) - 1].processName
+              }}
+            </p>
+            <p>
+              下一科目：{{
+                process.next == '-1'
+                  ? '无'
+                  : processList[parseInt(process.next) - 1].processName
+              }}
+            </p>
+          </v-card-text>
+        </v-card>
+        <v-card>
+          <v-card-title>学习记录</v-card-title>
+          <v-card-text>
+            <v-data-table
+              :headers="headers"
+              :items="process.detailList"
+              :items-per-page="5"
+              class="elevation-1"
+            >
+              <template v-slot:[`item.order`]="{ item }">
+                {{ item.order + 1 }}
+              </template>
+              <template v-slot:[`item.createTime`]="{ item }">
+                {{ $utils.formatDate(item.createTime) }}
+              </template>
+              <template v-slot:[`item.activeFlag`]="{ item }">
+                {{ item.activeFlag ? '学习中' : '已完成' }}
+              </template>
+            </v-data-table>
+          </v-card-text>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -23,13 +65,24 @@ export default {
     return {
       tabIndex: 0,
       processList: [{}],
+      headers: [
+        { text: '序号', value: 'order' },
+        {
+          text: '创建时间',
+          value: 'createTime',
+        },
+        {
+          text: '是否学习中',
+          value: 'activeFlag',
+        },
+      ],
     };
   },
   created() {
     const lincenseId = this.$route.params.id || 13;
     if (lincenseId) {
       this.getProcessListById(lincenseId);
-    } // TODO 若是本页刷新？
+    }
   },
   methods: {
     /**
@@ -54,7 +107,6 @@ export default {
         id,
       });
       if (processDetailList) {
-        console.log(this.processList);
         this.processList[index].detailList = processDetailList;
       }
     },
