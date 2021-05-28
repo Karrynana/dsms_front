@@ -6,11 +6,13 @@ import router from './router'
 import store from './store'
 import common from '../../common/index';
 import '../../common/styles/index.css';
+import PageTitle from '@/components/PageTitle'
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, common.axios);
 Vue.prototype.$utils = common.utils;
 Vue.prototype.$dao = common.dao;
+Vue.component('PageTitle', PageTitle);
 
 new Vue({
   router,
