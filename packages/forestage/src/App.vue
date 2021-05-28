@@ -20,8 +20,7 @@
       >
         <v-icon left>mdi-github</v-icon>Github
       </v-btn>
-      <LoginBox/>
-      
+      <LoginBox />
     </v-app-bar>
 
     <v-main>
@@ -33,3 +32,11 @@
   </v-app>
 </template>
 
+<script>
+import LoginBox from '@/components/LoginBox';
+export default {
+  components: {
+    LoginBox,
+  },
+};
+</script>

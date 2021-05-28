@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <carousel />
+    <Carousel />
     <v-container>
       <v-row>
         <!-- 学习进度+教练评价，游客不跳转，用户跳转到个人信息页面 -->
@@ -53,8 +53,12 @@
 </template>
 
 <script>
+import Carousel from '@/components/Carousel';
 export default {
   name: 'Home',
+  components: {
+    Carousel,
+  },
   data() {
     return {
       cards: [

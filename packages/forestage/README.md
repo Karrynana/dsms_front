@@ -1,11 +1,24 @@
-# vite-vue2-starter
+# forestage
 
-A simple start for using vue2 with vite, using [underfin's vite-plugin-vue2](https://github.com/underfin/vite-plugin-vue2).
-
-## Scripts
-
-```bash
-  npm run dev # start dev server
-  npm run build # build for production
-  npm run serve # locally preview production build
+## Project setup
 ```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
