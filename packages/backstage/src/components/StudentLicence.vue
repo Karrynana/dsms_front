@@ -27,7 +27,7 @@
 
       <el-button
         :disabled="
-          userLicenceList.length &&
+          userLicenceList.length !== 0 &&
           userLicenceList[userLicenceList.length - 1].activeFlag === 1
         "
         @click="onCreatNewLicence()"
@@ -68,9 +68,12 @@ export default {
     async onCreatNewLicence() {
       const params = {
         uid: this.userId,
-        lid: 0,
+        lid: 1,
       };
       const isCreated = await this.$dao.creatNewLicence(params);
+      if(isCreated){
+        this.getUserLicenceListById(this.userId)
+      }
     },
   },
 };

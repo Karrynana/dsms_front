@@ -22,8 +22,24 @@ const creatNewLicence = (params) => {
   return new Promise((resolve, reject) => {
     axios
       .post('/t-user-licence', { ...params })
-      .then((res) => {
-        resolve(res.data?.data);
+      .then(() => {
+        resolve(true);
+      })
+      .catch(() => {
+        reject(false);
+      });
+  });
+};
+
+/**
+ * 增加学时
+ */
+const addTime = (params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put('/t-user-process/time', { ...params })
+      .then(() => {
+        resolve(true);
       })
       .catch(() => {
         reject(false);
@@ -34,4 +50,5 @@ const creatNewLicence = (params) => {
 export default {
   getUserLicenceListById,
   creatNewLicence,
+  addTime,
 };
