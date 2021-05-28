@@ -43,24 +43,29 @@
             </div>
           </v-card-text>
           <v-card-actions v-if="activeIndex === pindex">
-            <div v-if="isShowAddTime">
-              <v-btn
-                color="primary"
-                @click="onAddTime(process.id, addTime, pindex)"
-                >确定记录</v-btn
-              >
-              <v-btn color="warning" @click="isShowAddTime = false"
-                >取消记录</v-btn
-              >
-            </div>
-            <div v-else>
-              <v-btn color="primary" @click="isShowAddTime = true"
-                >记录学时</v-btn
-              >
-              <v-btn :disabled="process.targetTime >= process.curTime" @click="onApplyNext()">
-                申请考试
-              </v-btn>
-            </div>
+            <v-btn
+              color="primary"
+              @click="onAddTime(process.id, addTime, pindex)"
+              v-if="isShowAddTime"
+              >确定记录</v-btn
+            >
+
+            <v-btn color="primary" @click="isShowAddTime = true" v-else>
+              记录学时
+            </v-btn>
+            <v-btn
+              color="warning"
+              @click="isShowAddTime = false"
+              v-if="isShowAddTime"
+              >取消记录</v-btn
+            >
+            <v-btn
+              :disabled="process.targetTime >= process.curTime"
+              @click="onApplyNext()"
+              v-else
+            >
+              申请考试
+            </v-btn>
           </v-card-actions>
         </v-card>
         <v-card class="mt-2">
@@ -78,16 +83,13 @@
               <template v-slot:[`item.createTime`]="{ item }">
                 {{ $utils.formatDate(item.createTime) }}
               </template>
-              <template v-slot:[`item.activeFlag`]="{ item }">
-                {{ item.activeFlag ? '学习中' : '已完成' }}
-              </template>
             </v-data-table>
           </v-card-text>
           <v-card-subtitle v-else>该科目学习暂未开始</v-card-subtitle>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-    <!-- {{ processList }} -->
+    {{ processList }}
   </div>
 </template>
 
@@ -118,8 +120,8 @@ export default {
           value: 'createTime',
         },
         {
-          text: '是否学习中',
-          value: 'activeFlag',
+          text: '状态',
+          value: 'stateName',
         },
       ],
     };
@@ -136,8 +138,12 @@ export default {
      * 申请下一步
      * 例如申请考试
      */
-    onApplyNext(){
-      console.log("申请成功");
+    onApplyNext() {
+      console.log('申请成功');
+    },
+    async queryNextProcessInfo() {
+      const name = await this.$dao.queryNextProcessInfo();
+      console.log(name);
     },
     /**
      * 增加学时
@@ -163,6 +169,7 @@ export default {
           process.detailList = [];
           this.getProcessDetailListById(index, process.id);
         }
+        this.queryNextProcessInfo();
       }
     },
     /**

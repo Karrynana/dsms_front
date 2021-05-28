@@ -47,8 +47,25 @@ const addTime = (params) => {
   });
 };
 
+/**
+ * 查询下一个状态的名字
+ */
+const queryNextProcessInfo = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('/t-user-process-list/next/info')
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        reject(false);
+      });
+  });
+};
+
 export default {
   getUserLicenceListById,
   creatNewLicence,
   addTime,
+  queryNextProcessInfo,
 };
