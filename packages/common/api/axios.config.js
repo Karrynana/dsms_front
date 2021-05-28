@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import qs from 'qs';
 import { Message, Loading } from 'element-ui';
 
 // 配置接口地址
