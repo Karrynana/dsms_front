@@ -80,10 +80,44 @@ const nextProcessWithStudent = (params) => {
   });
 };
 
+/**
+ * 教师流转学生状态
+ */
+const nextProcessWithTeacher = (params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('/t-user-process-list/teacher', { ...params })
+      .then(() => {
+        resolve(true);
+      })
+      .catch(() => {
+        reject(false);
+      });
+  });
+};
+
+/**
+ * 教师查询某学生的全部流水
+ */
+const getProcessListByUidUlidWithTeacher = (params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('/t-user-process-list/teacher/stu', { params })
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        reject(false);
+      });
+  });
+};
+
 export default {
   getUserLicenceListById,
   creatNewLicence,
   addTime,
   queryNextProcessInfo,
   nextProcessWithStudent,
+  nextProcessWithTeacher,
+  getProcessListByUidUlidWithTeacher,
 };

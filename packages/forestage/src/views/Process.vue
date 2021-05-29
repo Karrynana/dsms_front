@@ -42,7 +42,7 @@
               ></v-text-field>
             </div>
           </v-card-text>
-          <v-card-actions v-if="activeIndex === pindex">
+          <v-card-actions v-if="isShowAction(pindex)">
             <v-btn
               color="primary"
               @click="onAddTime(process.id, addTime, pindex)"
@@ -151,6 +151,14 @@ export default {
     }
   },
   methods: {
+    isShowAction(pindex) {
+      const detailList = this.processList[pindex].detailList;
+      return (
+        this.activeIndex === pindex &&
+        detailList[detailList.length - 1] &&
+        detailList[detailList.length - 1].activeFlag
+      );
+    },
     /**
      * 申请下一步
      * 例如申请考试

@@ -20,7 +20,14 @@
         </el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
-            {{ scope.row.activeFlag ? '学习中' : '已完成' }}
+            {{ scope.row.activeFlag == 1 ? '考取中' : '已完成' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="onExamine(scope.row)">
+              查看
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -33,6 +40,28 @@
         @click="onCreatNewLicence()"
         >创建驾照</el-button
       >
+
+      <el-table :data="processList">
+        <el-table-column label="科目" prop="prcName"></el-table-column>
+        <el-table-column label="时间" prop="createTime"></el-table-column>
+        <el-table-column label="状态" prop="stateName"></el-table-column>
+        <el-table-column label="是否完成">
+          <template slot-scope="scope">
+            {{ scope.row.activeFlag ? '进行中' : '已完成' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <div
+            slot-scope="scope"
+            v-if="scope.row.activeFlag && scope.row.stateName == '审核'"
+          >
+            <el-link size="mini" @click="operation(true)"> 通过 </el-link>
+            <el-link type="danger" size="mini" @click="operation(false)">
+              拒绝
+            </el-link>
+          </div>
+        </el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>
@@ -51,6 +80,8 @@ export default {
       isShowDialog: false,
       isLoading: false,
       userLicenceList: [],
+      processList: [],
+      row: null,
     };
   },
   props: {
@@ -59,6 +90,32 @@ export default {
     },
   },
   methods: {
+    /**
+     * 审批审核
+     * 通过/拒绝
+     */
+    async operation(flag) {
+      const isOperation = await this.$dao.nextProcessWithTeacher({
+        flag,
+        uid: this.userId,
+      });
+      if (isOperation) {
+        this.onExamine(this.row);
+      }
+    },
+    /**
+     * 点击 [查看] 获取某驾照的流程详情
+     */
+    async onExamine(row) {
+      this.row = row;
+      const { id: ulid } = row;
+      const processList = await this.$dao.getProcessListByUidUlidWithTeacher({
+        uid: this.userId,
+        ulid,
+      });
+      this.processList = processList;
+      console.log(processList);
+    },
     async getUserLicenceListById(id) {
       this.isLoading = true;
       const userLicenceList = await this.$dao.getUserLicenceListById({ id });
@@ -71,8 +128,8 @@ export default {
         lid: 1,
       };
       const isCreated = await this.$dao.creatNewLicence(params);
-      if(isCreated){
-        this.getUserLicenceListById(this.userId)
+      if (isCreated) {
+        this.getUserLicenceListById(this.userId);
       }
     },
   },

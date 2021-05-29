@@ -20,7 +20,7 @@
           <v-card-text>
             {{ $utils.formatDate(driverLicense.createTime * 1000) }}
             <v-chip outlined>
-              {{ driverLicense.activeFlag ? '考取中' : '已拥有' }}
+              {{ driverLicense.activeFlag == 1 ? '考取中' : '已拥有' }}
             </v-chip>
           </v-card-text>
         </v-card>
