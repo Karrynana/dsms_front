@@ -15,7 +15,7 @@
         <el-table-column prop="licenceName" label="驾照名称"> </el-table-column>
         <el-table-column label="创建时间">
           <template slot-scope="scope">
-            {{ $utils.formatDate(scope.row.createTime) }}
+            {{ $utils.formatDate(scope.row.createTime * 1000) }}
           </template>
         </el-table-column>
         <el-table-column label="状态">
@@ -43,7 +43,11 @@
 
       <el-table :data="processList">
         <el-table-column label="科目" prop="prcName"></el-table-column>
-        <el-table-column label="时间" prop="createTime"></el-table-column>
+        <el-table-column label="时间">
+          <template slot-scope="scope">
+            {{ $utils.formatDate(scope.row.createTime * 1000) }}
+          </template>
+        </el-table-column>
         <el-table-column label="状态" prop="stateName"></el-table-column>
         <el-table-column label="是否完成">
           <template slot-scope="scope">

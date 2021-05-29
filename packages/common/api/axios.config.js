@@ -4,13 +4,13 @@ import { Message, Loading } from 'element-ui';
 // 配置接口地址
 let baseURL = '';
 if (process.env.NODE_ENV === 'development') {
-  // baseURL = 'http://dsms-943221-1258865812.ap-shanghai.run.tcloudbase.com/dsms/'; // 远程开发环境
-  baseURL = 'http://192.168.199.138:8080/dsms/'; // 开发环境
-  // baseURL = 'http://82.157.175.248:8081/dsms';
+  // baseURL = 'http://192.168.199.138:8080/dsms/'; // 开发-局域网环境
+  // baseURL = 'http://localhost:8080'; //  开发-本机环境
+  baseURL = 'http://82.157.175.248:8081'; // 开发-云环境
 } else if (process.env.type === 'test') {
   // baseURL = '';// 测试环境
 } else {
-  // baseURL = '';// 生产环境
+  baseURL = 'http://82.157.175.248:8081'; // 生产环境
 }
 
 const Axios = axios.create({
