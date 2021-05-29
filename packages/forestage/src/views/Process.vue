@@ -190,7 +190,6 @@ export default {
         this.processList = processList;
         for (let index = 0; index < processList.length; index++) {
           const process = processList[index];
-          process.detailList = [];
           this.getProcessDetailListById(index, process.id);
         }
       }
@@ -206,7 +205,10 @@ export default {
         if (processDetailList.length && index > this.activeIndex) {
           this.activeIndex = index;
         }
-        this.processList[index].detailList = processDetailList;
+        // 深度监听 不能简单赋值 
+        // 需要使用 Vue.set 方法赋值
+        // https://cn.vuejs.org/v2/api/#Vue-set
+        this.$set(this.processList[index],'detailList',processDetailList)
       }
     },
   },
