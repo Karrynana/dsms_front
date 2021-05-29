@@ -7,7 +7,6 @@
       :items-per-page="5"
       class="elevation-1"
     ></v-data-table>
-    {{ messageList }}
   </div>
 </template>
 
@@ -16,10 +15,11 @@ export default {
   data() {
     return {
       headers: [
-        { text: '', value: '' },
-        { text: '消息内容', value: 'msg' },
-        { text: '', value: '' },
-        { text: '', value: '' },
+        { text: 'id', value: 'id' },
+        { text: '发送者', value: 'id' },
+        { text: '接受者', value: 'id' },
+        { text: '信件内容', value: 'msg' },
+        { text: '创建时间', value: '' },
       ],
     };
   },
