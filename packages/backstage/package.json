@@ -2,9 +2,9 @@
   "name": "backstage",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "serve": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "pre": "vite preview"
   },
   "dependencies": {
     "element-ui": "^2.15.1",

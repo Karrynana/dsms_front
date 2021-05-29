@@ -10,9 +10,14 @@
         v-for="(coach, index) in coachList"
         :key="index"
       >
-        <v-card>
-          <v-img :src="`${$globalData.cosUrl + '/' +coach.photo}` || `${$globalData.cosUrl + '/coach.png'}`"></v-img>
-          <v-card-title>{{ coach.name+' ' }}教练</v-card-title>
+        <v-card hover @click="onClickCoach(coach)">
+          <v-img
+            :src="
+              `${$globalData.cosUrl + '/' + coach.photo}` ||
+                `${$globalData.cosUrl + '/coach.png'}`
+            "
+          ></v-img>
+          <v-card-title>{{ coach.name + ' ' }}教练</v-card-title>
           <v-card-text>
             <v-text-field
               v-for="(info, index) in infoList"
@@ -26,13 +31,20 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-dialog v-model="isShowDetail">
+      <CoachIntroDetail :coach="checkCoach"/>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import CoachIntroDetail from '@/components/CoachIntroDetail';
 export default {
+  components: { CoachIntroDetail },
   data() {
     return {
+      isShowDetail: false,
+      checkCoach: {},
       coachList: [],
       infoList: [
         {
@@ -72,6 +84,10 @@ export default {
     this.getCoachList();
   },
   methods: {
+    onClickCoach(coach) {
+      this.checkCoach = coach;
+      this.isShowDetail = true;
+    },
     async getCoachList() {
       const coachList = await this.$dao.getCoachList();
       this.coachList = coachList;

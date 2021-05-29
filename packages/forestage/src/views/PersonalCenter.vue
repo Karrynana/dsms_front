@@ -5,11 +5,9 @@
       <v-card-text>
         <v-row>
           <v-col :cols="12" :sm="4" class="text-right">
+            <!-- $globalData.cosUrl + '/' + userInfoWithShow.avatar || -->
             <v-img
-              :src="
-                userInfoWithShow.avatar ||
-                'https://lh3.googleusercontent.com/proxy/w9lFOz0xLvR12uZcjuiyEAd6hf4xoCz3mzC8WReFAEu8wPrng-rwNm6qh2cA39WPDMaH4Vz2QXba8R1xnlSNdm-z8dNcJEZSaL3uO2N48vhjTcdDz4Zzju8'
-              "
+              :src="$globalData.cosUrl + '/avatar.jpeg'"
               :aspect-ratio="1"
               max-width="30vw"
             ></v-img>
@@ -63,7 +61,8 @@
         </v-row>
       </v-card-text>
       <v-card-actions v-if="!isEdit">
-        <v-btn text @click="onEdit">编辑</v-btn>
+        <v-btn text @click="onEdit()">编辑</v-btn>
+        <v-btn color="red" @click="onLogoff()">注销</v-btn>
       </v-card-actions>
 
       <v-card-actions v-else>
@@ -71,6 +70,20 @@
         <v-btn text @click="onCancelEdit">取消</v-btn>
       </v-card-actions>
     </v-card>
+    <v-dialog v-model="isShowLogoff" >
+      <v-card>
+        <v-card-title>
+          注销
+        </v-card-title>
+        <v-card-text>
+          确定注销吗？该操作不可逆。
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="red" dark>确定</v-btn>
+          <v-btn text @click="isShowLogoff = false">取消</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -91,10 +104,14 @@ export default {
   data() {
     return {
       isEdit: false,
+      isShowLogoff: false,
       userInfoWithEdit: {},
     };
   },
   methods: {
+    onLogoff() {
+      this.isShowLogoff = !this.isShowLogoff;
+    },
     onEdit() {
       this.isEdit = true;
       this.userInfoWithEdit = Object.assign({}, this.userInfo);
