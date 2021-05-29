@@ -49,6 +49,43 @@
       :src="$globalData.cosUrl + '/static/parallax.jpg'"
       height="300"
     />
+    <div class="grey lighten-3" ref="contact">
+      <v-container>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-card >
+              <v-card-title>驾校位置</v-card-title>
+              <v-card-subtitle>长春市南关区净月大街2555号</v-card-subtitle>
+              <v-img
+                :src="
+                  `https://restapi.amap.com/v3/staticmap` +
+                    `?location=125.428514,43.827654` +
+                    `&zoom=14&size=750*300` +
+                    `&markers=large,0xFFFFFF,D:125.428514,43.82765` +
+                    `&key=af708e0ea5256fdc07dab498b00bbc31`
+                "
+              ></v-img>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" sm="6">
+            <v-card flat color="transparent">
+              <v-card-title>联系电话</v-card-title>
+              <v-card-subtitle>0431-89111111</v-card-subtitle>
+              <v-card-title>电子邮箱</v-card-title>
+              <v-card-subtitle>
+                helper@dsms.com
+                <br />
+                support@dsms.com
+              </v-card-subtitle>
+              <v-card-text>
+                Copyright©2021-NOW DSMS
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -76,20 +113,32 @@ export default {
         {
           title: '教练介绍',
           icon: 'mdi-account-group',
+          action: {
+            routeName: 'CoachIntro',
+          },
         },
         {
           title: '联系我们',
           icon: 'mdi-phone',
+          action: {
+            method: 'goToContact',
+          },
         },
       ],
     };
   },
   methods: {
     onCardClick(action) {
-      const { routeName } = action;
+      const { routeName, method } = action;
       if (routeName) {
         this.$router.push({ name: routeName });
       }
+      if (method === 'goToContact') {
+        this.goToContact();
+      }
+    },
+    goToContact() {
+      this.$vuetify.goTo(this.$refs.contact);
     },
   },
 };

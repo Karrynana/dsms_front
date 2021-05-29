@@ -5,6 +5,7 @@ import DrivingLicense from '@/views/DrivingLicense.vue';
 import PersonalCenter from '@/views/PersonalCenter.vue';
 import Process from '@/views/Process.vue';
 import Message from '@/views/Message.vue';
+import CoachIntro from '@/views/CoachIntro.vue';
 
 Vue.use(VueRouter);
 
@@ -33,7 +34,12 @@ const routes = [
     path: '/message',
     name: 'Message',
     component: Message,
-  }
+  },
+  {
+    path: '/coach-intro',
+    name: 'CoachIntro',
+    component: CoachIntro,
+  },
 ];
 
 const router = new VueRouter({
