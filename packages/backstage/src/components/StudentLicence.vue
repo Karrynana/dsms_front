@@ -114,7 +114,6 @@ export default {
         ulid,
       });
       this.processList = processList;
-      console.log(processList);
     },
     async getUserLicenceListById(id) {
       this.isLoading = true;

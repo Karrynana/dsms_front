@@ -50,7 +50,11 @@
               >确定记录</v-btn
             >
 
-            <v-btn color="primary" @click="isShowAddTime = true" v-else>
+            <v-btn
+              color="primary"
+              @click="onClickAddTime(process.processType)"
+              v-else
+            >
               记录学时
             </v-btn>
             <v-btn
@@ -85,11 +89,18 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
+    <v-dialog v-model="isShowQrcodeStream">
+      <QrcodeStream v-if="isShowQrcodeStream" @decode="onDecode" />
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import { QrcodeStream } from 'vue-qrcode-reader';
 export default {
+  components: {
+    QrcodeStream,
+  },
   computed: {
     isCanNext() {
       const process = this.processList[this.activeIndex];
@@ -124,6 +135,7 @@ export default {
       tabIndex: 0,
       activeIndex: 0,
       isShowAddTime: false,
+      isShowQrcodeStream: false,
       addTime: 0,
       lincenseId: 0,
       processList: [],
@@ -151,6 +163,21 @@ export default {
     }
   },
   methods: {
+    onClickAddTime(type) {
+      if (type) {
+        this.isShowAddTime = true;
+        this.isShowQrcodeStream = true;
+      } else {
+        this.isShowAddTime = true;
+      }
+    },
+    /**
+     * 解析二维码
+     */
+    onDecode(decodedString) {
+      const codedString = JSON.parse(decodedString);
+      console.log(codedString);
+    },
     isShowAction(pindex) {
       const detailList = this.processList[pindex].detailList;
       return (
@@ -205,10 +232,10 @@ export default {
         if (processDetailList.length && index > this.activeIndex) {
           this.activeIndex = index;
         }
-        // 深度监听 不能简单赋值 
+        // 深度监听 不能简单赋值
         // 需要使用 Vue.set 方法赋值
         // https://cn.vuejs.org/v2/api/#Vue-set
-        this.$set(this.processList[index],'detailList',processDetailList)
+        this.$set(this.processList[index], 'detailList', processDetailList);
       }
     },
   },
