@@ -79,7 +79,9 @@
                 support@dsms.com
               </v-card-subtitle>
               <v-card-text>
-                Copyright©2021-NOW DSMS
+                <div class="text-right">
+                  —— Copyright©2021-NOW DSMS
+                </div>
               </v-card-text>
             </v-card>
           </v-col>
