@@ -8,11 +8,16 @@
       show-arrows-on-hover
     >
       <v-carousel-item
-        v-for="(slide, i) in slides"
-        :key="i"
-        :src="slide.src + '?imageMogr2/thumbnail/!50p'"
+        v-for="num in [1, 2, 3, 4]"
+        :key="num"
+        :src="
+          $globalData.cosUrl +
+            '/carousel/ds-carousel-' +
+            num +
+            '.png' +
+            '?imageMogr2/thumbnail/!50p'
+        "
       >
-        <!-- <img :src="`https://dmsm-dev0-1258854598.cos.ap-beijing.myqcloud.com/carousel/ds-carousel-${i + 1}.png`" /> -->
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -21,26 +26,7 @@
 <script>
 export default {
   data() {
-    return {
-      slides: [
-        {
-          src:
-            'https://dmsm-dev0-1258854598.cos.ap-beijing.myqcloud.com/carousel/ds-carousel-1.png',
-        },
-        {
-          src:
-            'https://dmsm-dev0-1258854598.cos.ap-beijing.myqcloud.com/carousel/ds-carousel-2.png',
-        },
-        {
-          src:
-            'https://dmsm-dev0-1258854598.cos.ap-beijing.myqcloud.com/carousel/ds-carousel-3.png',
-        },
-        {
-          src:
-            'https://dmsm-dev0-1258854598.cos.ap-beijing.myqcloud.com/carousel/ds-carousel-4.png',
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>

@@ -46,7 +46,7 @@
       </v-row>
     </v-container>
     <v-parallax
-      src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+      :src="$globalData.cosUrl + '/static/parallax.jpg'"
       height="300"
     />
   </div>

@@ -89,7 +89,6 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-    {{ processList }}
   </div>
 </template>
 
