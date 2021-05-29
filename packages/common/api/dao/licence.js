@@ -63,9 +63,27 @@ const queryNextProcessInfo = () => {
   });
 };
 
+/**
+ * 学生自行流转状态
+ */
+const nextProcessWithStudent = (params) => {
+  const { flag } = params;
+  return new Promise((resolve, reject) => {
+    axios
+      .post('/t-user-process-list?flag=' + flag)
+      .then(() => {
+        resolve(true);
+      })
+      .catch(() => {
+        reject(false);
+      });
+  });
+};
+
 export default {
   getUserLicenceListById,
   creatNewLicence,
   addTime,
   queryNextProcessInfo,
+  nextProcessWithStudent,
 };

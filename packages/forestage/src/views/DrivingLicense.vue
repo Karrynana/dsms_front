@@ -48,7 +48,7 @@ export default {
       }
     },
     goToProgress(id) {
-      this.$router.push({ name: 'Process', params: { id } });
+      this.$router.push({ name: 'Process', query: { id } });
     },
   },
 };

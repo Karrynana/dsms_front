@@ -17,18 +17,18 @@
           <v-card-title>科目简介</v-card-title>
           <v-card-text>
             <p>科目类型：{{ process.processType === '1' ? '实操' : '理论' }}</p>
-            <p v-if="processList[parseInt(process.last) - 1]">
+            <p v-if="processList[parseInt(process.last)]">
               上一科目：{{
                 process.last == '-1'
                   ? '无'
-                  : processList[parseInt(process.last) - 1].processName
+                  : processList[parseInt(process.last)].processName
               }}
             </p>
-            <p v-if="processList[parseInt(process.next) - 1]">
+            <p v-if="processList[parseInt(process.next)]">
               下一科目：{{
                 process.next == '-1'
                   ? '无'
-                  : processList[parseInt(process.next) - 1].processName
+                  : processList[parseInt(process.next)].processName
               }}
             </p>
             <p>目标学时：{{ process.targetTime }} 分钟</p>
@@ -59,12 +59,8 @@
               v-if="isShowAddTime"
               >取消记录</v-btn
             >
-            <v-btn
-              :disabled="process.targetTime >= process.curTime"
-              @click="onApplyNext()"
-              v-else
-            >
-              申请考试
+            <v-btn :disabled="!isCanNext" @click="onApplyNext()" v-else>
+              申请下一学段
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -81,7 +77,7 @@
                 {{ item.order + 1 }}
               </template>
               <template v-slot:[`item.createTime`]="{ item }">
-                {{ $utils.formatDate(item.createTime) }}
+                {{ $utils.formatDate(item.createTime * 1000) }}
               </template>
             </v-data-table>
           </v-card-text>
@@ -94,6 +90,25 @@
 
 <script>
 export default {
+  computed: {
+    isCanNext() {
+      const process = this.processList[this.activeIndex];
+      const detailList = process.detailList;
+      // 当学习时长为达标
+      // 或当已存在审核中
+      // 不允许出现 [申请下一学段] 按钮
+      if (process.targetTime > process.curTime) {
+        return false;
+      } else if (
+        detailList[detailList.length - 1] &&
+        detailList[detailList.length - 1].stateName === '审核'
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
   watch: {
     activeIndex(newValue) {
       this.tabIndex = newValue;
@@ -111,7 +126,7 @@ export default {
       isShowAddTime: false,
       addTime: 0,
       lincenseId: 0,
-      processList: [{}],
+      processList: [],
       headers: [
         { text: '序号', value: 'order' },
         {
@@ -126,7 +141,10 @@ export default {
     };
   },
   created() {
-    const lincenseId = this.$route.params.id || 13;
+    const lincenseId = this.$route.query.id;
+    if (!lincenseId) {
+      this.$router.push({ name: 'DrivingLicense' });
+    }
     if (lincenseId) {
       this.lincenseId = lincenseId;
       this.getProcessListById(lincenseId);
@@ -137,12 +155,11 @@ export default {
      * 申请下一步
      * 例如申请考试
      */
-    onApplyNext() {
-      console.log('申请成功');
-    },
-    async queryNextProcessInfo() {
-      const name = await this.$dao.queryNextProcessInfo();
-      console.log(name);
+    async onApplyNext() {
+      const isNext = await this.$dao.nextProcessWithStudent({ flag: true });
+      if (isNext) {
+        this.getProcessListById(this.lincenseId);
+      }
     },
     /**
      * 增加学时
@@ -168,7 +185,6 @@ export default {
           process.detailList = [];
           this.getProcessDetailListById(index, process.id);
         }
-        this.queryNextProcessInfo();
       }
     },
     /**
