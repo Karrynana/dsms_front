@@ -1,11 +1,30 @@
 import axios from '../axios.config';
 
+/**
+ * 查询用户的驾照列表
+ */
 const getUserLicenceListById = (params) => {
   return new Promise((resolve, reject) => {
     axios
       .get('/t-user-licence/id', {
         params,
       })
+      .then((res) => {
+        resolve(res.data?.data);
+      })
+      .catch(() => {
+        reject(false);
+      });
+  });
+};
+
+/**
+ * 查询用户激活的驾照
+ */
+const getUserActiveLicenceById = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('/t-user-licence/active')
       .then((res) => {
         resolve(res.data?.data);
       })
@@ -114,6 +133,7 @@ const getProcessListByUidUlidWithTeacher = (params) => {
 
 export default {
   getUserLicenceListById,
+  getUserActiveLicenceById,
   creatNewLicence,
   addTime,
   queryNextProcessInfo,

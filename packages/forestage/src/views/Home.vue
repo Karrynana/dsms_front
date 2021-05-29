@@ -53,7 +53,7 @@
       <v-container>
         <v-row>
           <v-col cols="12" sm="6">
-            <v-card >
+            <v-card>
               <v-card-title>驾校位置</v-card-title>
               <v-card-subtitle>长春市南关区净月大街2555号</v-card-subtitle>
               <v-img
@@ -102,6 +102,9 @@ export default {
         {
           title: '我的进度',
           icon: 'mdi-progress-clock',
+          action: {
+            method: 'myProcess',
+          },
         },
         {
           title: '我的驾照',
@@ -128,15 +131,32 @@ export default {
     };
   },
   methods: {
+    /**
+     * 当卡片被点击使触发的事件
+     */
     onCardClick(action) {
       const { routeName, method } = action;
       if (routeName) {
         this.$router.push({ name: routeName });
       }
-      if (method === 'goToContact') {
-        this.goToContact();
+      if (method) {
+        if (method === 'goToContact') {
+          this.goToContact();
+        } else if (method === 'myProcess') {
+          this.myProcess();
+        }
       }
     },
+    async myProcess() {
+      const activeLicence = await this.$dao.getUserActiveLicenceById();
+      if (activeLicence) {
+        const { id } = activeLicence;
+        this.$router.push({ name: 'Process', query: { id } });
+      }
+    },
+    /**
+     * 页面滚动到联系我们到位置
+     */
     goToContact() {
       this.$vuetify.goTo(this.$refs.contact);
     },
